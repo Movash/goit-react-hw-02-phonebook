@@ -16,19 +16,9 @@ export class App extends Component {
     filter: '',
   };
 
-  handleDelete = id => {
-    this.setState(prev => ({
-      contacts: prev.contacts.filter(el => el.id !== id),
-    }));
-  };
-
-  filterPerson = filterText => {
-    this.setState({ filter: filterText });
-  };
-
   createPerson = inputValues => {
     const isAlreadyExist = this.state.contacts.find(
-      el => el.name === inputValues.name
+      el => el.name.toLowerCase() === inputValues.name.toLowerCase()
     );
     if (isAlreadyExist)
       return alert(`${inputValues.name} is already in contacts`);
@@ -40,6 +30,16 @@ export class App extends Component {
     this.setState(prev => ({
       contacts: [newPerson, ...prev.contacts],
     }));
+  };
+
+  handleDelete = id => {
+    this.setState(prev => ({
+      contacts: prev.contacts.filter(el => el.id !== id),
+    }));
+  };
+
+  filterPerson = filterText => {
+    this.setState({ filter: filterText });
   };
 
   getFilteredContacts = () => {
